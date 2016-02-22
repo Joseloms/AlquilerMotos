@@ -1,0 +1,17 @@
+{% load blog_tags %}
+{% if alquileres %}
+    <h2>{{ alquiler.descripcion }}</h2>
+{% else %}
+    <h2>{{ alquiler.descripcion }}</h2>
+{% endif %}
+
+<div class="alquiler-info">
+    <small>
+        <strong>Cajero: </strong>{{ alquiler.cajero.username }}
+        <strong>Cliente: </strong>{{ alquiler.cliente.nombre }}
+        <strong>tiempo: </strong>{{ alquiler.tiempo }}
+    </small><hr>
+</div>
+<div class="alquiler-footer">
+    <strong>Motos: </strong>{{ alquiler.get_string_motos }}
+</div>
