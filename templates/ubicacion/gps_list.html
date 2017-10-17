@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Lista de Dispositivos GPS{% endblock title %}
+
+{% block content %}
+
+<h2 class="page-header"> Lista de dispositivos GPS </h2>
+<table class="table table-striped">
+    <tr>
+      <td> <strong> DESCRIPCION </strong> </td>
+      <td> <strong> VEHICULO </strong> </td>
+      <td> <strong> LATITUD </strong> </td>
+      <td> <strong> LONGITUD </strong> </td>
+      <td> <strong> ACCIONES </strong> </td>
+    </tr>
+    {% for gps in object_list %}
+    <tr>
+        <td> {{ gps.descripcion }} </td>
+        <td> {{ gps.vehiculo }} </td>
+        <td> {{ gps.latitud }} </td>
+        <td> {{ gps.longitud }} </td>
+        <td>
+            <a href="{% url 'ubicacion:gps_editar' gps.id %}" class="btn btn-primary btn-xs">Editar</a>
+            <a href="{% url 'ubicacion:gps_eliminar' gps.id %}" class="btn btn-danger btn-xs">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}

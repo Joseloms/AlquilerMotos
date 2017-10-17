@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Crear Alquiler{% endblock title %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="page-header"><h2>Crear Alquiler</h2></div>
+
+            <form method="post" action="">
+                {% csrf_token %}
+                <form class="form-horizontal">
+
+                    <div class="form-group">
+                        <label class="control-label">cajero:</label>
+                            <input type="text" id="cajero" name="cajero" class="form-control" value="{{ cajero }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">cliente:</label>
+                            <input type="text" id="cliente" name="cliente" class="form-control" value="{{ cliente }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">vehiculos:</label>
+                            <input type="text" id="vehiculos" name="vehiculos" class="form-control" value="{{ vehiculos }}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Crear</button>
+                </form>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

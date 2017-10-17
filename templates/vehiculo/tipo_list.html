@@ -1,0 +1,28 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Alquiler de Motos - Lista de Tipo{% endblock title %}
+
+{% block content %}
+
+<h2 class="page-header"> Lista de Tipos </h2>
+<table class="table table-striped">
+    <tr>
+      <td> <strong> DESCRIPCION </strong> </td>
+      <td> <strong> PRECIO </strong> </td>
+      <td> <strong> KM_MANTENIMIENTO </strong> </td>
+      <td> <strong> ACCIONES </strong> </td>
+
+    </tr>
+    {% for tipo in object_list %}
+    <tr>
+        <td> {{ tipo.descripcion }} </td>
+        <td> {{ tipo.precio }} </td>
+        <td> {{ tipo.km_mantenimiento }} </td>
+        <td>
+            <a href="{% url 'vehiculo:tipo_editar' tipo.id %}" class="btn btn-primary btn-xs">Editar</a>
+            <a href="{% url 'vehiculo:tipo_eliminar' tipo.id %}" class="btn btn-danger btn-xs">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}

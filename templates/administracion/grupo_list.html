@@ -1,0 +1,41 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Lista de Grupos{% endblock title %}
+
+{% block content %}
+<h2 class="page-header"> Lista de Grupos </h2>
+   <table class="table table-striped">
+        <thead>
+        <tr>
+            <td> <strong> Nª </strong> </td>
+            <td><strong> DESCRIPCION </strong></td>
+            <td> <strong> ACCIONES </strong> </td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for grupo in object_list %}
+            <tr>
+                <td>{{ grupo.pk }}</td>
+                <td>{{ grupo.name }}</td>
+                <td>
+                    <a href="{% url 'administracion:grupo_detalle' grupo.id %}" class="btn btn-info btn-xs">Detalle</a>
+                    <a href="{% url 'administracion:grupo_editar' grupo.id %}" class="btn btn-primary btn-xs">Editar</a>
+                    <a href="{% url 'administracion:grupo_eliminar' grupo.id %}" class="btn btn-danger btn-xs">Eliminar</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <ul class="pager">
+        <li>
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+            {% endif %}
+        </li>
+        <li>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+            {% endif %}
+        </li>
+    </ul>
+{% endblock %}

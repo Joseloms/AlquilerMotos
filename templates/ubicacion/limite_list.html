@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Limite de Distancia{% endblock title %}
+
+{% block content %}
+
+<h2 class="page-header"> Limite de distancia permitida </h2>
+<table class="table table-striped">
+    <tr>
+      <td> <strong> DESCRIPCION </strong> </td>
+      <td> <strong> DISTANCIA KM </strong> </td>
+      <td> <strong> ACCIONES </strong> </td>
+    </tr>
+    {% for limite in object_list %}
+    <tr>
+        <td> {{ limite.descripcion }} </td>
+        <td> {{ limite.distancia_km }} </td>
+        <td>
+            <a href="{% url 'ubicacion:limite_editar' limite.id %}" class="btn btn-primary btn-xs">Editar</a>
+            <a href="{% url 'ubicacion:limite_eliminar' limite.id %}" class="btn btn-danger btn-xs">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}

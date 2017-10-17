@@ -1,0 +1,132 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Alquiler de Motos Vargas</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="{% url 'administracion:index' %}">Inicio</a></li>
+
+            {% if perms.auth.add_user %}
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Configuracion <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href={% url 'administracion:grupo_crear' %}>Crear Grupo</a></li>
+                  <li><a href={% url 'administracion:grupo_list' %}>Lista de Grupos</a></li>
+                  <li><a href={% url 'administracion:usuario_crear' %}>Crear Usuario</a></li>
+                  <li><a href={% url 'administracion:usuario_list' %}>Lista de Usuarios</a></li>
+                </ul>
+            </li>
+            {% endif %}
+
+            {% if perms.Vehiculo.add_vehiculo %}
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Vehiculo <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href={% url 'vehiculo:vehiculo_crear' %}>Crear Vehiculo</a></li>
+                  <li><a href={% url 'vehiculo:vehiculo_list' %}>Lista de Vehiculos</a></li>
+                  <li><a href={% url 'vehiculo:tipo_crear' %}>Crear Tipo</a></li>
+                  <li><a href={% url 'vehiculo:tipo_list' %}>Lista de Tipos</a></li>
+                </ul>
+            </li>
+            {% endif %}
+
+            {% if perms.Vehiculo.add_mantenimiento %}
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Mantenimiento <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href={% url 'vehiculo:trabajo_crear' %}>Crear Trabajo</a></li>
+                  <li><a href={% url 'vehiculo:trabajo_list' %}>Lista de Trabajos</a></li>
+                  <li><a href={% url 'vehiculo:mantenimiento_crear' %}>Crear Mantenimiento</a></li>
+                  <li><a href={% url 'vehiculo:mantenimiento_list' %}>Lista de Mantenimientos</a></li>
+                </ul>
+             </li>
+            {% endif %}
+
+             {% if perms.Ubicacion.add_ubicacion %}
+             <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Ubicacion <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href={% url 'ubicacion:gps_crear' %}>Crear dispositivo GPS</a></li>
+                  <li><a href={% url 'ubicacion:gps_list' %}>Lista de dispositivos GPS</a></li>
+                  <li><a href={% url 'ubicacion:limite_crear' %}>Establecer Limites</a></li>
+                  <li><a href={% url 'ubicacion:limite_list' %}>Administrar Limites</a></li>
+                </ul>
+            </li>
+            {% endif %}
+
+            {% if perms.Alquiler.add_alquiler %}
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Alquiler <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href={% url 'alquiler:cliente_crear' %}>Crear Cliente</a></li>
+                  <li><a href={% url 'alquiler:cliente_list' %}>Lista de Clientes</a></li>
+                  <li><a href={% url 'alquiler:alquiler_crear' %}>Realizar Alquiler</a></li>
+                  <li><a href={% url 'alquiler:alquiler_list' %}>Lista de Alquileres</a></li>
+                </ul>
+            </li>
+            {% endif %}
+
+          </ul>
+            <ul class="nav navbar-nav navbar-right">
+              {% if user.is_authenticated %}
+                <li><a href="{% url 'administracion:logout' %}">Logout</a></li>
+              {% else %}
+                <li><a href="{% url 'administracion:usuario_crear' %}">Registro</a></li>
+                <li><a href="{% url 'administracion:login' %}">Login</a></li>
+              {% endif %}
+                <li><a href="http://localhost:8000/admin">ADMINISTRADOR</a></li>
+
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+        {% include "base/_messages.html" %}
+        {% block content %}{% endblock content %}
+    </div><!-- /.container -->
+
+</div>
+    <script src="{% static 'jquery/jquery.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+		<footer>
+
+			<p class="footer-company-motto">Alquiler de motos Vargas.</p>
+
+			<p class="footer-company-name">Proyecto de Grado &copy; 2017</p>
+
+		</footer>
+</html>

@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Lista de Mantenimientos{% endblock title %}
+
+{% block content %}
+
+<h2 class="page-header"> Lista de Mantenimientos </h2>
+<table class="table table-striped">
+    <tr>
+      <td> <strong> DESCRIPCION </strong> </td>
+      <td> <strong> TRABAJOS </strong> </td>
+      <td> <strong> VEHICULO </strong> </td>
+      <td> <strong> FECHA </strong> </td>
+      <td> <strong> ACCIONES </strong> </td>
+    </tr>
+    {% for mantenimiento in object_list %}
+    <tr>
+        <td> {{ mantenimiento.descripcion }} </td>
+        <td> {{ mantenimiento.trabajos }} </td>
+        <td> {{ mantenimiento.vehiculo }} </td>
+        <td> {{ mantenimiento.fecha }} </td>
+        <td>
+            <a href="{% url 'vehiculo:mantenimiento_editar' mantenimiento.id %}" class="btn btn-primary btn-xs">Editar</a>
+            <a href="{% url 'vehiculo:mantenimiento_eliminar' mantenimiento.id %}" class="btn btn-danger btn-xs">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}

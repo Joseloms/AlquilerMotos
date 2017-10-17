@@ -1,0 +1,37 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Alquiler de Motos - Lista de Vehiculos{% endblock title %}
+
+{% block content %}
+
+<h2 class="page-header"> Lista de vehiculos </h2>
+<table class="table table-striped">
+    <tr>
+      <td> <strong> PLACA </strong> </td>
+      <td> <strong> DESCRIPCION </strong> </td>
+      <td> <strong> MARCA </strong> </td>
+      <td> <strong> MODELO </strong> </td>
+      <td> <strong> CILINDRADA </strong> </td>
+      <td> <strong> TIPO </strong> </td>
+      <td> <strong> KM RECORRIDO </strong> </td>
+      <td> <strong> ACTIVO </strong> </td>
+      <td> <strong> ACCIONES </strong> </td>
+    </tr>
+    {% for vehiculo in object_list %}
+    <tr>
+        <td> {{ vehiculo.placa }} </td>
+        <td> {{ vehiculo.descripcion }} </td>
+        <td> {{ vehiculo.marca }} </td>
+        <td> {{ vehiculo.modelo }} </td>
+        <td> {{ vehiculo.cilindrada }} </td>
+        <td> {{ vehiculo.tipo }} </td>
+        <td> {{ vehiculo.km_recorrido }} </td>
+        <td> <input type="checkbox" name="my-checkbox" checked> {{ vehiculo.activo }} </td>
+        <td>
+            <a href="{% url 'vehiculo:vehiculo_editar' vehiculo.placa %}" class="btn btn-primary btn-xs">Editar</a>
+            <a href="{% url 'vehiculo:vehiculo_eliminar' vehiculo.placa %}" class="btn btn-danger btn-xs">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}

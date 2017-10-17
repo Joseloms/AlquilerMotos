@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Lista de Trabajos{% endblock title %}
+
+{% block content %}
+
+<h2 class="page-header"> Lista de Trabajos </h2>
+<table class="table table-striped">
+    <tr>
+      <td> <strong> DESCRIPCION </strong> </td>
+      <td> <strong> ACTIVO </strong> </td>
+      <td> <strong> ACCIONES </strong> </td>
+
+    </tr>
+    {% for trabajo in object_list %}
+    <tr>
+        <td> {{ trabajo.descripcion }} </td>
+        <td> <input type="checkbox" name="my-checkbox" checked> {{ trabajo.activo }} </td>
+        <td>
+            <a href="{% url 'vehiculo:trabajo_editar' trabajo.id %}" class="btn btn-primary btn-xs">Editar</a>
+            <a href="{% url 'vehiculo:trabajo_eliminar' trabajo.id %}" class="btn btn-danger btn-xs">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}
