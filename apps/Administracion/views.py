@@ -3,7 +3,7 @@ from django.contrib.auth.models import User, Group
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, DetailView
 from django.core.urlresolvers import reverse_lazy
 from apps.Administracion.forms import GroupForm, UserForm
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 

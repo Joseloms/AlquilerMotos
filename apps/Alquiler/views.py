@@ -18,7 +18,7 @@ class ClienteCreate(SuccessMessageMixin, CreateView):
 def busqueda(request):
    q = request.GET.get('q','')
    clientes = Cliente.objects.filter(nombre__icontains=q)
-   return render(request, 'alquiler/cliente_busqueda.html', {'clientes': clientes})
+   return render(request, 'alquiler/cliente_list.html', {'clientes': clientes})
 
 def Cliente_crear(request):
 
@@ -56,6 +56,7 @@ class ClienteDelete(SuccessMessageMixin, DeleteView):
 class ClienteList(ListView):
     model = Cliente
     template_name = 'alquiler/cliente_list.html'
+    context_object_name = 'clientes'
 
 class AlquilerCreate(SuccessMessageMixin, CreateView):
     model = Alquiler
@@ -64,27 +65,29 @@ class AlquilerCreate(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('alquiler:alquiler_list')
     success_message = "%(descripcion)s creado correctamente"
 
-def Alquiler_crear(request):
+    def Alquiler_crear(request):
 
-    if request.method == 'POST':
-        alquiler = Alquiler()
-        cajero = User.username
-        cliente = request.POST.get('cliente')
-        vehiculos = request.POST.get('vehiculos')
-        user_model = User()
-        user_model.username = cajero
-        cliente_model = Cliente()
-        cliente_model.nombre = cliente
-        alquiler.cajero = user_model
-        alquiler.cliente =  cliente_model
-        alquiler.vehiculos = vehiculos
-        alquiler.save()
-        messages.success(request, 'Alquiler creado.')
-        return redirect(reverse_lazy('alquiler:alquiler_list'))
-    else:
-        form = AlquilerForm()
-        context = {'form': form}
-        return render(request, 'alquiler/alquiler_form.html',context)
+        if request.method == 'POST':
+            alquiler = Alquiler()
+            cajero = request.POST.get('cajero')
+            cliente = request.POST.get('cliente')
+            vehiculos = request.POST.get('vehiculos')
+            user_model = User()
+            user_model.username = cajero
+            cliente_model = Cliente()
+            cliente_model.nombre = cliente
+            alquiler.hora_inicio = "00:00"
+            alquiler.hora_fin = "00:00"
+            alquiler.cajero = user_model
+            alquiler.cliente =  cliente_model
+            alquiler.save()
+            alquiler.vehiculos = vehiculos
+            messages.success(request, 'Alquiler creado.')
+            return redirect(reverse_lazy('alquiler:alquiler_list'))
+        else:
+            form = AlquilerForm()
+            context = {'form': form}
+            return render(request, 'alquiler/alquiler_form.html',context)
 
 class AlquilerUpdate(SuccessMessageMixin, UpdateView):
     model = Alquiler

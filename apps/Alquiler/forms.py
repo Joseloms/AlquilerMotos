@@ -1,5 +1,5 @@
 from django import forms
-from .models import Cliente, Alquiler,User
+from .models import Cliente, Alquiler
 
 class ClienteForm(forms.ModelForm):
 
@@ -29,12 +29,10 @@ class AlquilerForm(forms.ModelForm):
 
     class Meta:
         model = Alquiler
-        fields = ('cajero', 'cliente','tiempo', 'hora_inicio', 'hora_fin','vehiculos')
+        fields = ('cliente','cajero','tiempo','vehiculos')
         widgets = {
-            'hora_inicio': forms.TimeInput(attrs={'class': 'form-control','placeholder':'ingrese en formato 00:00'},format="00:00"),
-            'hora_fin': forms.TimeInput(attrs={'class': 'form-control'},format="00:00:00"),
-            'cajero': forms.Select(attrs={'class': 'form-control'}),
             'cliente': forms.Select(attrs={'class': 'form-control'}),
+            'cajero': forms.Select(attrs={'class': 'form-control'}),
             'vehiculos': forms.SelectMultiple(attrs={'class': 'form-control'}),
         }
 

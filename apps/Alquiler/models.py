@@ -25,7 +25,6 @@ class Alquiler(models.Model):
         permissions = (
             ("add_alquileres", "Puede crear Alquileres"),
         )
-
     def __int__(self):
         return self.cliente
     def motos(self):
