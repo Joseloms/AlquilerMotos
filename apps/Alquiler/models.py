@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from apps.Vehiculo.models import Vehiculo
 from django.utils import timezone
+from decimal import Decimal
 from django.conf import settings
 # Create your models here.
 
@@ -21,6 +22,7 @@ class Alquiler(models.Model):
     cajero = models.ForeignKey(User)
     cliente = models.ForeignKey(Cliente)
     vehiculos = models.ManyToManyField(Vehiculo)
+    #total = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     class Meta:
         permissions = (
             ("add_alquileres", "Puede crear Alquileres"),

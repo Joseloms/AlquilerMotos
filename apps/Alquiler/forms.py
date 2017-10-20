@@ -16,26 +16,29 @@ class ClienteForm(forms.ModelForm):
             'telefono': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
+
 TIEMPO = (
-    ('15 MINUTOS','15 MINUTOS'),
-    ('30 MINUTOS','30 MINUTOS'),
-    ('1 HORA','1 HORAS'),
-    ('2 HORAS','2 HORAS'),
+    ('15','15 MINUTOS'),
+    ('30','30 MINUTOS'),
+    ('60','1 HORAS'),
+    ('120','2 HORAS'),
 )
 
 class AlquilerForm(forms.ModelForm):
-
     tiempo = forms.CharField(widget=forms.Select(choices=TIEMPO, attrs={'class': 'form-control'}))
-
     class Meta:
         model = Alquiler
-        fields = ('cliente','cajero','tiempo','vehiculos')
+        fields = ( 'cliente','tiempo','vehiculos')
         widgets = {
+
+            # 'hora_fin': forms.TimeInput(attrs={'class': 'form-control'},format="00:00:00"),
+            # 'cajero': forms.Select(attrs={'class': 'form-control'}),
             'cliente': forms.Select(attrs={'class': 'form-control'}),
-            'cajero': forms.Select(attrs={'class': 'form-control'}),
             'vehiculos': forms.SelectMultiple(attrs={'class': 'form-control'}),
         }
 
-
-
+class AlquilerCreateForm(forms.ModelForm):
+    class Meta:
+        model = Alquiler
+        fields = ( 'cajero', 'cliente', 'hora_inicio', 'hora_fin','vehiculos')
 

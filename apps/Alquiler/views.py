@@ -1,11 +1,15 @@
-from django.shortcuts import render, redirect
-from django.views.generic import CreateView, UpdateView, DeleteView, ListView
-from .forms import ClienteForm, AlquilerForm
+from datetime import datetime, timedelta
+
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse_lazy
-from django.contrib.auth.models import User
-from .models import Cliente, Alquiler
-from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView
+
+from .forms import AlquilerCreateForm
+from .forms import ClienteForm, AlquilerForm
+from .models import Cliente, Alquiler,Vehiculo
+
 
 # Create your views here.
 class ClienteCreate(SuccessMessageMixin, CreateView):
@@ -14,11 +18,6 @@ class ClienteCreate(SuccessMessageMixin, CreateView):
     form_class = ClienteForm
     success_url = reverse_lazy('alquiler:cliente_list')
     success_message = "%(nombre)s creado correctamente"
-
-def busqueda(request):
-   q = request.GET.get('q','')
-   clientes = Cliente.objects.filter(nombre__icontains=q)
-   return render(request, 'alquiler/cliente_list.html', {'clientes': clientes})
 
 def Cliente_crear(request):
 
@@ -65,29 +64,35 @@ class AlquilerCreate(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('alquiler:alquiler_list')
     success_message = "%(descripcion)s creado correctamente"
 
-    def Alquiler_crear(request):
+def busqueda(request):
+   q = request.GET.get('q','')
+   clientes = Cliente.objects.filter(nombre__icontains=q)
+   return render(request, 'alquiler/cliente_list.html', {'clientes': clientes})
 
-        if request.method == 'POST':
-            alquiler = Alquiler()
-            cajero = request.POST.get('cajero')
-            cliente = request.POST.get('cliente')
-            vehiculos = request.POST.get('vehiculos')
-            user_model = User()
-            user_model.username = cajero
-            cliente_model = Cliente()
-            cliente_model.nombre = cliente
-            alquiler.hora_inicio = "00:00"
-            alquiler.hora_fin = "00:00"
-            alquiler.cajero = user_model
-            alquiler.cliente =  cliente_model
-            alquiler.save()
-            alquiler.vehiculos = vehiculos
+def Alquiler_crear(request):
+    if request.method == 'POST':
+        POST = request.POST.copy()
+        POST['cajero'] = request.user.id
+        inicio = datetime.strptime(datetime.now().strftime("%H:%M"), "%H:%M")
+        fin = inicio + timedelta(minutes = int(POST['tiempo']))
+        hora_fin = "%s:%s"%(fin.hour, fin.minute)
+        POST["hora_inicio"] = datetime.now().strftime("%H:%M")
+        POST['hora_fin'] = hora_fin
+        form = AlquilerCreateForm(POST)
+        if form.is_valid():
+            form.save()
             messages.success(request, 'Alquiler creado.')
             return redirect(reverse_lazy('alquiler:alquiler_list'))
         else:
-            form = AlquilerForm()
+            messages.error(request, 'Verifique la informacion.')
+            form = AlquilerForm(POST)
             context = {'form': form}
             return render(request, 'alquiler/alquiler_form.html',context)
+    else:
+        form = AlquilerForm()
+        context = {'form': form}
+        return render(request, 'alquiler/alquiler_form.html',context)
+
 
 class AlquilerUpdate(SuccessMessageMixin, UpdateView):
     model = Alquiler
@@ -102,6 +107,16 @@ class AlquilerDelete(SuccessMessageMixin, DeleteView):
     success_url = reverse_lazy('alquiler:alquiler_list')
     success_message = "Elimado Correctamente"
 
-class AlquilerList(ListView):
-    model = Alquiler
-    template_name = 'alquiler/alquiler_list.html'
+def precios(request):
+    precio = Tip
+    return precio
+
+#class AlquilerList(ListView):
+#    model = Alquiler
+#    template_name = 'alquiler/alquiler_list.html'
+#    context_object_name = 'alquileres'
+
+def AlquilerList(request):
+    alquileres = Alquiler.objects.all()
+    context = {'alquileres': alquileres}
+    return render(request, 'alquiler/alquiler_list.html', context)

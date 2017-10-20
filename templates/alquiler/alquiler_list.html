@@ -7,7 +7,6 @@
 <h2 class="page-header"> Lista de alquileres Activos </h2>
 <table class="table table-striped">
     <tr>
-      <td> <strong> DESCRIPCION </strong> </td>
       <td> <strong> HORA INICIO </strong> </td>
       <td> <strong> HORA FINAL </strong> </td>
       <td> <strong> CAJERO </strong> </td>
@@ -15,9 +14,8 @@
       <td> <strong> MOTOS </strong> </td>
       <td> <strong> ACCIONES </strong> </td>
     </tr>
-    {% for alquiler in object_list %}
+    {% for alquiler in alquileres %}
     <tr>
-        <td> {{ alquiler.descripcion }} </td>
         <td> {{ alquiler.hora_inicio }} </td>
         <td> {{ alquiler.hora_fin }} </td>
         <td> {{ alquiler.cajero }} </td>
