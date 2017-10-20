@@ -8,7 +8,9 @@ from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 
 from .forms import AlquilerCreateForm
 from .forms import ClienteForm, AlquilerForm
-from .models import Cliente, Alquiler,Vehiculo
+from .models import Cliente, Alquiler
+from decimal import Decimal
+
 
 
 # Create your views here.
@@ -81,6 +83,17 @@ def Alquiler_crear(request):
         form = AlquilerCreateForm(POST)
         if form.is_valid():
             form.save()
+            alquiler = form.save()
+            div = int(POST['tiempo'])
+            if div == 120:
+                alquiler.total = alquiler.get_precio()*2
+            if div == 60:
+                alquiler.total = alquiler.get_precio()
+            if div == 30:
+                alquiler.total = alquiler.get_precio()/2
+            if div == 15:
+                alquiler.total = alquiler.get_precio()*Decimal(0.25)
+            alquiler.save()
             messages.success(request, 'Alquiler creado.')
             return redirect(reverse_lazy('alquiler:alquiler_list'))
         else:
@@ -107,9 +120,7 @@ class AlquilerDelete(SuccessMessageMixin, DeleteView):
     success_url = reverse_lazy('alquiler:alquiler_list')
     success_message = "Elimado Correctamente"
 
-def precios(request):
-    precio = Tip
-    return precio
+
 
 #class AlquilerList(ListView):
 #    model = Alquiler

@@ -45,6 +45,6 @@ class MantenimientoForm(forms.ModelForm):
         fields = ('descripcion','vehiculo','trabajo')
         widgets = {
             'descripcion': forms.TextInput(attrs={'class': 'form-control'}),
-            'vehiculo': forms.TextInput(attrs={'class': 'form-control'}),
+            'vehiculo': forms.Select(attrs={'class': 'form-control'}),
             'trabajo': forms.SelectMultiple(attrs={'class': 'form-control'})
         }

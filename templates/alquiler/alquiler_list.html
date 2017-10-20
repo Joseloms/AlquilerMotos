@@ -12,6 +12,7 @@
       <td> <strong> CAJERO </strong> </td>
       <td> <strong> CLIENTE </strong> </td>
       <td> <strong> MOTOS </strong> </td>
+      <td> <strong> TOTAL </strong> </td>
       <td> <strong> ACCIONES </strong> </td>
     </tr>
     {% for alquiler in alquileres %}
@@ -21,6 +22,7 @@
         <td> {{ alquiler.cajero }} </td>
         <td> {{ alquiler.cliente }} </td>
         <td> {{ alquiler.motos }} </td>
+        <td> {{ alquiler.total }} </td>
         <td>
             <a href="{% url 'alquiler:alquiler_editar' alquiler.id %}" class="btn btn-primary btn-xs">Editar</a>
             <a href="{% url 'alquiler:alquiler_eliminar' alquiler.id %}" class="btn btn-danger btn-xs">Eliminar</a>

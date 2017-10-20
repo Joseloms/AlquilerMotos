@@ -6,7 +6,7 @@
     <h2 class="page-header">Confirmacion para eliminar</h2>
     <form method="post" action="">
         {% csrf_token %}
-        <p>¿Seguro que quieres eliminar el Limite actual {{ limite.descripcion }}?</p>
+        <p>¿Seguro que quieres eliminar el alquiler al Cliente {{ alquiler.cliente }}?</p>
         <button type="submit" class="btn btn-danger">Si, eliminar</button>
         <a href="{% url 'ubicacion:limite_list'%}" class="btn btn-primary" role="button">Cancelar</a>
     </form>
