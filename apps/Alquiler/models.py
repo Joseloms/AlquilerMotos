@@ -20,11 +20,12 @@ class Alquiler(models.Model):
     fecha = models.DateTimeField(auto_now_add = timezone.now())
     hora_inicio = models.TimeField()
     hora_fin = models.TimeField()
+    tiempo = models.CharField(max_length=100)
     cajero = models.ForeignKey(User)
     cliente = models.ForeignKey(Cliente)
-    vehiculos = models.ManyToManyField(Vehiculo)
+    vehiculo = models.ManyToManyField(Vehiculo)
     total = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
-    pagado = models.BooleanField(default=True)
+    pagado = models.BooleanField(default=False)
     class Meta:
         permissions = (
             ("add_alquileres", "Puede crear Alquileres"),
@@ -33,10 +34,10 @@ class Alquiler(models.Model):
         return self.cliente
 
     def motos(self):
-        return ', '.join([Vehiculo.descripcion for Vehiculo in self.vehiculos.all()])
+        return ', '.join([Vehiculo.descripcion for Vehiculo in self.vehiculo.all()])
 
     def get_precio(self):
-        suma = self.vehiculos.all().aggregate(Sum('tipo__precio'))
+        suma = self.vehiculo.all().aggregate(Sum('tipo__precio'))
         if suma:
             return suma['tipo__precio__sum']
         return 0

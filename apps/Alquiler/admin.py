@@ -7,7 +7,7 @@ class ClienteAdmin(admin.ModelAdmin):
     search_fields = ('apellidos',)
 
 class AlquilerAdmin(admin.ModelAdmin):
-    list_display = ('cliente','cajero','fecha','motos','total','hora_inicio','hora_fin')
+    list_display = ('cliente','cajero','fecha','motos','total','hora_inicio','hora_fin','tiempo')
     search_fields = ('cliente',)
 
 admin.site.register(Cliente,ClienteAdmin)

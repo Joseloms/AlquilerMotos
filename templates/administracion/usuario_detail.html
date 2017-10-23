@@ -12,24 +12,24 @@
                 <div class="table-responsive">
                     <table class="table table-user-information">
                         <tbody>
-                        {% if object.id %}
+                        {% if usuario.id %}
                             <tr>
                                 <th class="col-md-3 text-right">Id</th>
-                                <td>{{ object.id }}</td>
+                                <td>{{ usuario.id }}</td>
                             </tr>
                         {% endif %}
-                        {% if object.name %}
+                        {% if usuario.name %}
                             <tr>
                                 <th class="col-md-3 text-right">Usuario</th>
-                                <td>{{ object.name }}</td>
+                                <td>{{ usuario.name }}</td>
                             </tr>
                         {% endif %}
-                        {% if object.permissions %}
+                        {% if usuario.permissions %}
                             <tr>
                                 <th class="col-md-3 text-right">Permisos</th>
                                 <td>
                                     <ul>
-                                        {% for permisos in object.permissions.all %}
+                                        {% for permisos in usuario.permissions.all %}
                                             <li> {{ permisos.codename }}</li>
                                         {% endfor %}
                                     </ul>

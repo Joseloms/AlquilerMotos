@@ -28,17 +28,25 @@ class AlquilerForm(forms.ModelForm):
     tiempo = forms.CharField(widget=forms.Select(choices=TIEMPO, attrs={'class': 'form-control'}))
     class Meta:
         model = Alquiler
-        fields = ( 'cliente','tiempo','vehiculos')
+        fields = ( 'cliente','tiempo','vehiculo')
         widgets = {
 
             # 'hora_fin': forms.TimeInput(attrs={'class': 'form-control'},format="00:00:00"),
             # 'cajero': forms.Select(attrs={'class': 'form-control'}),
             'cliente': forms.Select(attrs={'class': 'form-control'}),
-            'vehiculos': forms.SelectMultiple(attrs={'class': 'form-control'}),
+            'vehiculo': forms.SelectMultiple(attrs={'class': 'form-control'}),
         }
 
 class AlquilerCreateForm(forms.ModelForm):
+    tiempo = forms.CharField(widget=forms.Select(choices=TIEMPO, attrs={'class': 'form-control'}))
     class Meta:
         model = Alquiler
-        fields = ( 'cajero', 'cliente', 'hora_inicio', 'hora_fin','vehiculos')
+        fields = ( 'cajero', 'cliente', 'hora_inicio', 'hora_fin','tiempo','vehiculo','pagado')
+        widgets = {
+            'hora_inicio': forms.TimeInput(attrs={'class': 'form-control'}),
+            'hora_fin': forms.TimeInput(attrs={'class': 'form-control'}),
+            'cajero': forms.Select(attrs={'class': 'form-control'}),
+            'cliente': forms.Select(attrs={'class': 'form-control'}),
+            'vehiculos': forms.SelectMultiple(attrs={'class': 'form-control'}),
+        }
 

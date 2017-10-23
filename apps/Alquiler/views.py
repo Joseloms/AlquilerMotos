@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView, UpdateView, DeleteView, ListView
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
 
 from .forms import AlquilerCreateForm
 from .forms import ClienteForm, AlquilerForm
@@ -95,7 +95,7 @@ def Alquiler_crear(request):
                 alquiler.total = alquiler.get_precio()*Decimal(0.25)
             alquiler.save()
             messages.success(request, 'Alquiler creado.')
-            return redirect(reverse_lazy('alquiler:alquiler_list'))
+            return redirect(reverse_lazy('alquiler:alquiler_list_activos'))
         else:
             messages.error(request, 'Verifique la informacion.')
             form = AlquilerForm(POST)
@@ -110,8 +110,8 @@ def Alquiler_crear(request):
 class AlquilerUpdate(SuccessMessageMixin, UpdateView):
     model = Alquiler
     template_name = 'alquiler/alquiler_form.html'
-    form_class = AlquilerForm
-    success_url = reverse_lazy('alquiler:alquiler_list')
+    form_class = AlquilerCreateForm
+    success_url = reverse_lazy('alquiler:alquiler_list_activos')
     success_message = "Modificado Correctamente"
 
 class AlquilerDelete(SuccessMessageMixin, DeleteView):
@@ -120,14 +120,18 @@ class AlquilerDelete(SuccessMessageMixin, DeleteView):
     success_url = reverse_lazy('alquiler:alquiler_list')
     success_message = "Elimado Correctamente"
 
+class AlquilerList(ListView):
+    model = Alquiler
+    template_name = 'alquiler/alquiler_list.html'
+    context_object_name = 'alquileres'
 
 
-#class AlquilerList(ListView):
-#    model = Alquiler
-#    template_name = 'alquiler/alquiler_list.html'
-#    context_object_name = 'alquileres'
-
-def AlquilerList(request):
-    alquileres = Alquiler.objects.all()
+def AlquilerListActivos(request):
+    alquileres = Alquiler.objects.filter(pagado=False)
     context = {'alquileres': alquileres}
-    return render(request, 'alquiler/alquiler_list.html', context)
+    return render(request, 'alquiler/alquiler_list_activos.html', context)
+
+class AlquilerDetail(DetailView):
+    model = Alquiler
+    template_name = 'alquiler/alquiler_detail.html'
+    context_object_name = 'alquiler'

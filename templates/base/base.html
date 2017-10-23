@@ -8,7 +8,6 @@
      <title>{% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
-
 </head>
 <body>
 <div class="container">
@@ -93,6 +92,7 @@
                   <li><a href={% url 'alquiler:cliente_list' %}>Lista de Clientes</a></li>
                   <li><a href={% url 'alquiler:alquiler_crear' %}>Realizar Alquiler</a></li>
                   <li><a href={% url 'alquiler:alquiler_list' %}>Lista de Alquileres</a></li>
+                  <li><a href={% url 'alquiler:alquiler_list_activos' %}>Alquileres Activos</a></li>
                 </ul>
             </li>
             {% endif %}
@@ -123,10 +123,5 @@
     <script src="{% static 'js/main.js' %}"></script>
 </body>
 		<footer>
-
-			<p class="footer-company-motto">Alquiler de motos Vargas.</p>
-
-			<p class="footer-company-name">Proyecto de Grado &copy; 2017</p>
-
 		</footer>
 </html>

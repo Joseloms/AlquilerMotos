@@ -46,6 +46,7 @@ class GrupoList(ListView):
 class GrupoDetail(DetailView):
     model = Group
     template_name = 'administracion/grupo_detail.html'
+    context_object_name = 'grupo'
 
 
 class UsuarioCreate(CreateView):
@@ -76,6 +77,7 @@ class UsuarioList(ListView):
 class UsuarioDetail(DetailView):
     model = User
     template_name = 'administracion/usuario_detail.html'
+    context_object_name = 'usuario'
 
 
 def login_view(request):

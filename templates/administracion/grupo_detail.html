@@ -12,24 +12,24 @@
                 <div class="table-responsive">
                     <table class="table table-user-information">
                         <tbody>
-                        {% if object.id %}
+                        {% if grupo.id %}
                             <tr>
                                 <th class="col-md-3 text-left">Id</th>
-                                <td>{{ object.id }}</td>
+                                <td>{{ grupo.id }}</td>
                             </tr>
                         {% endif %}
-                        {% if object.name %}
+                        {% if grupo.name %}
                             <tr>
                                 <th class="col-md-3 text-left">Usuario</th>
-                                <td>{{ object.name }}</td>
+                                <td>{{ grupo.name }}</td>
                             </tr>
                         {% endif %}
-                        {% if object.permissions %}
+                        {% if grupo.permissions %}
                             <tr>
                                 <th class="col-md-3 text-left">Permisos</th>
                                 <td>
                                     <ul>
-                                        {% for permisos in object.permissions.all %}
+                                        {% for permisos in grupo.permissions.all %}
                                             <li> {{ permisos.name }}</li>
                                         {% endfor %}
                                     </ul>
@@ -42,5 +42,5 @@
             </div>
         </div>
     </div>
-    <a href="javascript:history.back()" class="btn btn-warning">Cancelar</a>
+    <a href="javascript:history.back()" class="btn btn-warning">Volver</a>
 {% endblock content %}
