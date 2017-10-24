@@ -12,6 +12,7 @@
       <td> <strong> NOMBRE </strong> </td>
       <td> <strong> MOTOS </strong> </td>
       <td> <strong> TOTAL </strong> </td>
+      <td> <strong> PAGO </strong> </td>
       <td> <strong> ACCIONES </strong> </td>
     </tr>
     {% for alquiler in alquileres %}
@@ -21,9 +22,14 @@
         <td> {{ alquiler.cliente.nombre }} </td>
         <td> {{ alquiler.motos }} </td>
         <td> {{ alquiler.total }} </td>
+        {% if alquiler.pagado %}
+            <td> Pagado </td>
+        {% else %}
+            <td> Sin pago </td>
+        {% endif %}
         <td>
             <a href="{% url 'alquiler:alquiler_detalle' alquiler.id %}" class="btn btn-warning btn-xs">Detalles</a>
-            <a href="{% url 'alquiler:alquiler_editar' alquiler.id %}" class="btn btn-success btn-xs">Finalizar</a>
+            <a href="{% url 'alquiler:alquiler_editar' alquiler.id %}" class="btn btn-primary btn-xs">Estado de Pagos</a>
             <a href="{% url 'alquiler:alquiler_eliminar' alquiler.id %}" class="btn btn-danger btn-xs">Eliminar</a>
         </td>
     </tr>

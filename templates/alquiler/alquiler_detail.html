@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load alquiler_tags %}
 
 {% block title %}Lista de alquiler{% endblock title %}
 
@@ -25,7 +26,28 @@
     <input type="text" class="form-control" id="apellidos" value="{{alquiler.cliente.apellidos}}" />
   </div>
 </form>
+<br /> <br /> <br /> <br /> <br />
+
+<div style="width:30%; float:left;">
+<p>Tiempo de aquiler: <strong>{{ alquiler.tiempo }} minutos</strong></p>
+{% if alquiler.pagado %}
+     <p>Estado de Pago: <strong> pagado</strong></p>
+{% else %}
+    <p>Estado de Pago: <strong> no pagado</strong></p>
+{% endif %}
+
+</div>
+
+<div style="width:30%; float:left;">
+    {% ifequal alquiler.exceso '0' %}
+        <p>Estado de Pago: <strong> Sin exceso</strong></p>
+    {% else %}
+        <p>Exceso: <strong> {{ alquiler.exceso}} minutos</strong></p>
+    {% endifequal %}
+</div>
+
 <br /> <br /> <br /> <br />
+
 <fieldset>
   <legend>Datos de las motos </legend>
 </fieldset>
@@ -36,7 +58,9 @@
       <td> <strong> DESCRIPCION </strong> </td>
       <td> <strong> MARCA </strong> </td>
       <td> <strong> MODELO </strong> </td>
-      <td> <strong> PRECIO </strong> </td>
+      <td> <strong> PRECIO POR HORA</strong> </td>
+      <td> <strong> PRECIO ALQUILER</strong> </td>
+      <td> <strong> EXCESO</strong> </td>
     </tr>
     {% for moto in alquiler.vehiculo.all%}
      <tr>
@@ -45,15 +69,24 @@
         <td> {{ moto.marca }}</td>
         <td> {{ moto.modelo }}</td>
         <td> {{ moto.tipo.precio }}</td>
+        <td> {{ moto.tipo.precio|get_price_by_time:alquiler.tiempo }}</td>
+        {% ifequal alquiler.exceso '0' %}
+            <td> Sin Exceso </td>
+        {% else %}
+            <td> {{ moto.tipo.precio|get_price_by_time:alquiler.exceso }}</td>
+        {% endifequal %}
      </tr>
      {% endfor %}
      <tr>
         <td></td>
         <td></td>
         <td></td>
+        <td></td>
         <td><STRONG>TOTAL</STRONG></td>
+        <td>{{alquiler.total}}</td>
         <td>{{alquiler.total}}</td>
      </tr>
 </table>
+    <a href="{% url 'alquiler:alquiler_finalizar' alquiler.id %}" class="btn btn-success">Finalizar</a>
     <a href="javascript:history.back()" class="btn btn-warning">Volver</a>
 {% endblock content %}

@@ -1,6 +1,7 @@
+#encoding:utf-8
 from django.db import models
 from django.contrib.auth.models import User
-from apps.Vehiculo.models import Vehiculo
+from ..Vehiculo.models import Vehiculo
 from django.utils import timezone
 from django.db.models import Sum
 from decimal import Decimal
@@ -25,7 +26,9 @@ class Alquiler(models.Model):
     cliente = models.ForeignKey(Cliente)
     vehiculo = models.ManyToManyField(Vehiculo)
     total = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
+    exceso = models.CharField(max_length=100,null=True)
     pagado = models.BooleanField(default=False)
+    activo = models.BooleanField(default=True)
     class Meta:
         permissions = (
             ("add_alquileres", "Puede crear Alquileres"),

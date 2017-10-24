@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from apps.Alquiler.views import AlquilerDetail
+from .views import AlquilerDetail
 from . import views
 
 urlpatterns = [
@@ -16,5 +16,6 @@ urlpatterns = [
     url(r'^editar2/(?P<pk>[-\w]+)/$', views.AlquilerUpdate.as_view(), name='alquiler_editar'),
     url(r'^eliminar2/(?P<pk>[-\w]+)/$', views.AlquilerDelete.as_view(), name='alquiler_eliminar'),
     url(r'^alquiler/detalle/(?P<pk>\d+)/$', AlquilerDetail.as_view(), name='alquiler_detalle'),
+    url(r'^alquiler/(?P<pk>\d+)/finalizar/$', views.Alquiler_finalizar, name='alquiler_finalizar'),
 
 ]
