@@ -1,5 +1,6 @@
 from django import forms
 from .models import Cliente, Alquiler
+from ..Vehiculo.models import Vehiculo
 
 class ClienteForm(forms.ModelForm):
 
@@ -26,6 +27,7 @@ TIEMPO = (
 
 class AlquilerForm(forms.ModelForm):
     tiempo = forms.CharField(widget=forms.Select(choices=TIEMPO, attrs={'class': 'form-control'}))
+    vehiculo = forms.ModelMultipleChoiceField(queryset=Vehiculo.objects.filter(activo = True))
     class Meta:
         model = Alquiler
         fields = ( 'cliente','tiempo','vehiculo')

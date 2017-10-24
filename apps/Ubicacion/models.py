@@ -1,7 +1,8 @@
+#encoding:utf-8
 # Create your models here.
 
 from django.db import models
-from apps.Vehiculo.models import Vehiculo
+from ..Vehiculo.models import Vehiculo
 from decimal import Decimal
 
 class GPS(models.Model):

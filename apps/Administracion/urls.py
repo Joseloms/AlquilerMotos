@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from . import views
-from apps.Administracion.views import GrupoCreate, GrupoList, GrupoUpdate, GrupoDelete, GrupoDetail,UsuarioCreate,UsuarioUpdate,UsuarioDelete,UsuarioDetail,UsuarioList
+from .views import GrupoCreate, GrupoList, GrupoUpdate, GrupoDelete, GrupoDetail,UsuarioCreate,UsuarioUpdate,UsuarioDelete,UsuarioDetail,UsuarioList
 
 urlpatterns = [
 

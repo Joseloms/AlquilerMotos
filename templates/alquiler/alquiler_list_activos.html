@@ -23,7 +23,7 @@
         <td> {{ alquiler.total }} </td>
         <td>
             <a href="{% url 'alquiler:alquiler_detalle' alquiler.id %}" class="btn btn-warning btn-xs">Detalles</a>
-            <a href="{% url 'alquiler:alquiler_editar' alquiler.id %}" class="btn btn-success btn-xs">Finalizar</a>
+            <a href="{% url 'alquiler:alquiler_finalizar' alquiler.id %}" class="btn btn-success btn-xs">Finalizar</a>
             <a href="{% url 'alquiler:alquiler_eliminar' alquiler.id %}" class="btn btn-danger btn-xs">Eliminar</a>
         </td>
     </tr>

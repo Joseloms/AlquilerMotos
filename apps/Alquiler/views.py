@@ -1,3 +1,4 @@
+#encoding:utf-8
 from datetime import datetime, timedelta
 
 from django.contrib import messages
@@ -94,6 +95,7 @@ def Alquiler_crear(request):
             if div == 15:
                 alquiler.total = alquiler.get_precio()*Decimal(0.25)
             alquiler.save()
+            alquiler.vehiculo.all().update(activo=False)
             messages.success(request, 'Alquiler creado.')
             return redirect(reverse_lazy('alquiler:alquiler_list_activos'))
         else:
@@ -106,6 +108,16 @@ def Alquiler_crear(request):
         context = {'form': form}
         return render(request, 'alquiler/alquiler_form.html',context)
 
+def Alquiler_finalizar(request, pk):
+    ### Logica para saber si esta activo el Alquiler
+    ### luego de eso se setea los Vehiculos status True
+    try:
+        alquiler = Alquiler.objects.get(id=pk)
+    except:
+        print "Error"
+        return redirect(reverse_lazy('alquiler:alquiler_list_activos'))
+    alquiler.vehiculo.all().update(activo=True)
+    return redirect(reverse_lazy('alquiler:alquiler_list_activos'))
 
 class AlquilerUpdate(SuccessMessageMixin, UpdateView):
     model = Alquiler

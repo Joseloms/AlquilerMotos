@@ -1,6 +1,7 @@
+#encoding:utf-8
 from django.db import models
 from django.contrib.auth.models import User
-from apps.Vehiculo.models import Vehiculo
+from ..Vehiculo.models import Vehiculo
 from django.utils import timezone
 from django.db.models import Sum
 from decimal import Decimal

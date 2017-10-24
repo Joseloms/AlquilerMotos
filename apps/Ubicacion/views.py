@@ -1,3 +1,4 @@
+#encoding:utf-8
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 from .forms import GpsForm, LimiteForm
 from django.core.urlresolvers import reverse_lazy
