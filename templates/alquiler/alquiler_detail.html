@@ -4,89 +4,100 @@
 {% block title %}Lista de alquiler{% endblock title %}
 
 {% block content %}
-<h2 class="page-header"> Detalle de Alquiler </h2>
+    <h2 class="page-header"> Detalle de Alquiler </h2>
 
-<form>
-<fieldset>
-  <legend>Datos del cliente</legend>
-</fieldset>
+    <script>
+        function sumar(uno, dos) {
+            var total;
+            total = parseInt(uno.value) + parseInt(dos.value);
+            return total;
+        }
+    </script>
 
-  <div class="col-sm-2">
-    <label for="dni">Carnet:</label>
-    <input type="text" id="dni" class="form-control" value="{{alquiler.cliente.carnet}}" />
-  </div>
+    <form>
+        <fieldset>
+            <legend>Datos del cliente</legend>
+        </fieldset>
 
-  <div class="col-sm-3">
-    <label for="nombre">Nombre:</label>
-    <input type="text" class="form-control" id="nombre" value="{{alquiler.cliente.nombre}}"/>
-  </div>
+        <div class="col-sm-2">
+            <label for="dni">Carnet:</label>
+            <input type="text" id="dni" class="form-control" value="{{ alquiler.cliente.carnet }}"/>
+        </div>
 
-  <div class="col-sm-5">
-    <label for="apellidos">Apellidos:</label>
-    <input type="text" class="form-control" id="apellidos" value="{{alquiler.cliente.apellidos}}" />
-  </div>
-</form>
-<br /> <br /> <br /> <br /> <br />
+        <div class="col-sm-3">
+            <label for="nombre">Nombre:</label>
+            <input type="text" class="form-control" id="nombre" value="{{ alquiler.cliente.nombre }}"/>
+        </div>
 
-<div style="width:30%; float:left;">
-<p>Tiempo de aquiler: <strong>{{ alquiler.tiempo }} minutos</strong></p>
-{% if alquiler.pagado %}
-     <p>Estado de Pago: <strong> pagado</strong></p>
-{% else %}
-    <p>Estado de Pago: <strong> no pagado</strong></p>
-{% endif %}
+        <div class="col-sm-5">
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" class="form-control" id="apellidos" value="{{ alquiler.cliente.apellidos }}"/>
+        </div>
+    </form>
+    <br/> <br/> <br/> <br/> <br/>
 
-</div>
+    <div style="width:30%; float:left;">
+        <p>Tiempo de aquiler: <strong>{{ alquiler.tiempo }} minutos</strong></p>
+        {% if alquiler.pagado %}
+            <p>Estado de Pago: <strong> pagado</strong></p>
+        {% else %}
+            <p>Estado de Pago: <strong> no pagado</strong></p>
+        {% endif %}
 
-<div style="width:30%; float:left;">
-    {% ifequal alquiler.exceso '0' %}
-        <p>Estado de Pago: <strong> Sin exceso</strong></p>
-    {% else %}
-        <p>Exceso: <strong> {{ alquiler.exceso}} minutos</strong></p>
-    {% endifequal %}
-</div>
+    </div>
 
-<br /> <br /> <br /> <br />
+    <div style="width:30%; float:left;">
+        {% ifequal alquiler.exceso '0' %}
+            <p>Exceso: <strong> Sin exceso</strong></p>
+        {% else %}
+            <p>Exceso: <strong> {{ alquiler.exceso }} minutos</strong></p>
+        {% endifequal %}
+    </div>
 
-<fieldset>
-  <legend>Datos de las motos </legend>
-</fieldset>
+    <br/> <br/> <br/> <br/>
+
+    <fieldset>
+        <legend>Datos de las motos</legend>
+    </fieldset>
 
     <table class="table table-striped">
-    <tr>
-      <td> <strong> PLACA </strong> </td>
-      <td> <strong> DESCRIPCION </strong> </td>
-      <td> <strong> MARCA </strong> </td>
-      <td> <strong> MODELO </strong> </td>
-      <td> <strong> PRECIO POR HORA</strong> </td>
-      <td> <strong> PRECIO ALQUILER</strong> </td>
-      <td> <strong> EXCESO</strong> </td>
-    </tr>
-    {% for moto in alquiler.vehiculo.all%}
-     <tr>
-        <td> {{ moto.placa }}</td>
-        <td> {{ moto.descripcion }}</td>
-        <td> {{ moto.marca }}</td>
-        <td> {{ moto.modelo }}</td>
-        <td> {{ moto.tipo.precio }}</td>
-        <td> {{ moto.tipo.precio|get_price_by_time:alquiler.tiempo }}</td>
-        {% ifequal alquiler.exceso '0' %}
-            <td> Sin Exceso </td>
-        {% else %}
-            <td> {{ moto.tipo.precio|get_price_by_time:alquiler.exceso }}</td>
-        {% endifequal %}
-     </tr>
-     {% endfor %}
-     <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><STRONG>TOTAL</STRONG></td>
-        <td>{{alquiler.total}}</td>
-        <td>{{alquiler.total}}</td>
-     </tr>
-</table>
+        <tr>
+            <td><strong> PLACA </strong></td>
+            <td><strong> DESCRIPCION </strong></td>
+            <td><strong> MARCA </strong></td>
+            <td><strong> MODELO </strong></td>
+            <td><strong> PRECIO POR HORA</strong></td>
+            <td><strong> PRECIO ALQUILER</strong></td>
+            <td><strong> EXCESO</strong></td>
+        </tr>
+        {% for moto in alquiler.vehiculo.all %}
+            <tr>
+                <td> {{ moto.placa }}</td>
+                <td> {{ moto.descripcion }}</td>
+                <td> {{ moto.marca }}</td>
+                <td> {{ moto.modelo }}</td>
+                <td> {{ moto.tipo.precio }}</td>
+                <td> {{ moto.tipo.precio|get_price_by_time:alquiler.tiempo }}</td>
+                {% ifequal alquiler.exceso '0' %}
+                    <td> Sin Exceso</td>
+                {% else %}
+                    <td> {{ moto.tipo.precio|get_price_by_time:alquiler.exceso }}</td>
+                {% endifequal %}
+            </tr>
+        {% endfor %}
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><STRONG>SUBTOTAL</STRONG></td>
+            <td>{{ alquiler.total }}</td>
+            <td>{{ alquiler.total_exceso }}</td>
+        </tr>
+    </table>
+    <div style="width:24%; float:right;">
+        <h3> <strong>TOTAL:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong> {{ alquiler.total_alquiler }}</h3>
+    </div>
     <a href="{% url 'alquiler:alquiler_finalizar' alquiler.id %}" class="btn btn-success">Finalizar</a>
     <a href="javascript:history.back()" class="btn btn-warning">Volver</a>
 {% endblock content %}

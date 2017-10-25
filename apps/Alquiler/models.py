@@ -26,6 +26,8 @@ class Alquiler(models.Model):
     cliente = models.ForeignKey(Cliente)
     vehiculo = models.ManyToManyField(Vehiculo)
     total = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
+    total_exceso = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
+    total_alquiler = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     exceso = models.CharField(max_length=100,null=True)
     pagado = models.BooleanField(default=False)
     activo = models.BooleanField(default=True)

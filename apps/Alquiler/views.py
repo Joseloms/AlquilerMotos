@@ -88,6 +88,29 @@ def Alquiler_crear(request):
         context = {'form': form}
         return render(request, 'alquiler/alquiler_form.html',context)
 
+def Alquiler_pagos(request, pk):
+    alquiler = Alquiler.objects.get(id=pk)
+    if request.method == 'POST':
+        alquiler.pagado = bool(request.POST.get('pagado'))
+        alquiler.exceso = request.POST.get('exceso')
+        div = int(request.POST.get('exceso'))
+        if div == 120:
+            alquiler.total_exceso = alquiler.get_precio() * 2
+        if div == 60:
+            alquiler.total_exceso = alquiler.get_precio()
+        if div == 30:
+            alquiler.total_exceso = alquiler.get_precio() / 2
+        if div == 15:
+            alquiler.total_exceso = alquiler.get_precio() * Decimal(0.25)
+        alquiler.total_alquiler = alquiler.total + alquiler.total_exceso
+        alquiler.save()
+        return redirect(reverse_lazy('alquiler:alquiler_list_activos'))
+    else:
+        form = AlquilerPagosForm()
+        context = {'form': form}
+        return render(request, 'alquiler/alquiler_form.html', context)
+
+
 def Alquiler_finalizar(request, pk):
     ### Logica para saber si esta activo el Alquiler
     ### luego de eso se setea los Vehiculos status True
