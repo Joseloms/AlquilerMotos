@@ -3,6 +3,12 @@ from .models import Vehiculo, Tipo, Trabajo, Mantenimiento
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import render, redirect
+
+def busqueda(request):
+   q = request.GET.get('q','')
+   mantenimientos = Mantenimiento.objects.filter()
+   return render(request, 'vehiculo/mantenimiento_list.html', {'mantenimientos': mantenimientos})
 
 class VehiculoCreate(CreateView):
     model = Vehiculo
@@ -27,6 +33,7 @@ class VehiculoDelete(DeleteView):
 class VehiculoList(ListView):
     model = Vehiculo
     template_name = 'vehiculo/vehiculo_list.html'
+    context_object_name = 'vehiculos'
 
 class TipoCreate(SuccessMessageMixin, CreateView):
     model = Tipo
@@ -102,3 +109,4 @@ class MantenimientoDelete(SuccessMessageMixin, DeleteView):
 class MantenimientoList(ListView):
     model = Mantenimiento
     template_name = 'vehiculo/mantenimiento_list.html'
+    context_object_name = 'mantenimientos'

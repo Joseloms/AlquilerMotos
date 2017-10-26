@@ -6,14 +6,6 @@
 {% block content %}
     <h2 class="page-header"> Detalle de Alquiler </h2>
 
-    <script>
-        function sumar(uno, dos) {
-            var total;
-            total = parseInt(uno.value) + parseInt(dos.value);
-            return total;
-        }
-    </script>
-
     <form>
         <fieldset>
             <legend>Datos del cliente</legend>
@@ -34,6 +26,7 @@
             <input type="text" class="form-control" id="apellidos" value="{{ alquiler.cliente.apellidos }}"/>
         </div>
     </form>
+
     <br/> <br/> <br/> <br/> <br/>
 
     <div style="width:30%; float:left;">
@@ -96,7 +89,7 @@
         </tr>
     </table>
     <div style="width:24%; float:right;">
-        <h3> <strong>TOTAL:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong> {{ alquiler.total_alquiler }}</h3>
+        <h3> <strong>TOTAL:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong> {{ alquiler.total_alquiler }}</h3>
     </div>
     <a href="{% url 'alquiler:alquiler_finalizar' alquiler.id %}" class="btn btn-success">Finalizar</a>
     <a href="javascript:history.back()" class="btn btn-warning">Volver</a>

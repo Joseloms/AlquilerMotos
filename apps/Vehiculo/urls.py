@@ -20,5 +20,6 @@ urlpatterns = [
     url(r'^list4/$', views.MantenimientoList.as_view(), name='mantenimiento_list'),
     url(r'^editar4/(?P<pk>[-\w]+)/$', views.MantenimientoUpdate.as_view(), name='mantenimiento_editar'),
     url(r'^eliminar4/(?P<pk>[-\w]+)/$', views.MantenimientoDelete.as_view(), name='mantenimiento_eliminar'),
+    url(r'^filtro/$', views.busqueda, name='mantenimiento_busqueda'),
 
 ]

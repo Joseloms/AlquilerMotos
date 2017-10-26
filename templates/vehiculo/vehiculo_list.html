@@ -17,7 +17,7 @@
       <td> <strong> ACTIVO </strong> </td>
       <td> <strong> ACCIONES </strong> </td>
     </tr>
-    {% for vehiculo in object_list %}
+    {% for vehiculo in vehiculos %}
     <tr>
         <td> {{ vehiculo.placa }} </td>
         <td> {{ vehiculo.descripcion }} </td>
@@ -26,7 +26,11 @@
         <td> {{ vehiculo.cilindrada }} </td>
         <td> {{ vehiculo.tipo }} </td>
         <td> {{ vehiculo.km_recorrido }} </td>
-        <td> <input type="checkbox" name="my-checkbox" checked> {{ vehiculo.activo }} </td>
+        {% if vehiculo.activo %}
+            <td> Activo </td>
+        {% else %}
+            <td> Inactivo </td>
+        {% endif %}
         <td>
             <a href="{% url 'vehiculo:vehiculo_editar' vehiculo.placa %}" class="btn btn-primary btn-xs">Editar</a>
             <a href="{% url 'vehiculo:vehiculo_eliminar' vehiculo.placa %}" class="btn btn-danger btn-xs">Eliminar</a>

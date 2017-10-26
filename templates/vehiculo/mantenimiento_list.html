@@ -5,6 +5,16 @@
 {% block content %}
 
 <h2 class="page-header"> Lista de Mantenimientos </h2>
+
+<form action="{% url 'vehiculo:mantenimiento_busqueda' %}" method="get">
+<div class="form-group">
+<div class="col-xs-4">
+    <input type="text" class="form-control" name="q" placeholder="Busqueda por vehiculo" />
+    <input type="date" class="form-control " name = "fecha" />
+</div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</div>
+<br><br>
 <table class="table table-striped">
     <tr>
       <td> <strong> DESCRIPCION </strong> </td>
@@ -13,7 +23,7 @@
       <td> <strong> FECHA </strong> </td>
       <td> <strong> ACCIONES </strong> </td>
     </tr>
-    {% for mantenimiento in object_list %}
+    {% for mantenimiento in mantenimientos %}
     <tr>
         <td> {{ mantenimiento.descripcion }} </td>
         <td> {{ mantenimiento.trabajos }} </td>

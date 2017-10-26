@@ -12,8 +12,6 @@ from .forms import ClienteForm, AlquilerForm, AlquilerPagosForm
 from .models import Cliente, Alquiler
 from decimal import Decimal
 
-
-
 # Create your views here.
 class ClienteCreate(SuccessMessageMixin, CreateView):
     model = Cliente
@@ -106,7 +104,7 @@ def Alquiler_pagos(request, pk):
         alquiler.save()
         return redirect(reverse_lazy('alquiler:alquiler_list_activos'))
     else:
-        form = AlquilerPagosForm()
+        form = AlquilerPagosForm(instance=alquiler)
         context = {'form': form}
         return render(request, 'alquiler/alquiler_form.html', context)
 
